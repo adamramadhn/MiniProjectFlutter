@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:movie/provider/now_playing_provider.dart';
+import 'package:movie/screen/movie_detail_screen/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -20,12 +21,17 @@ class MovieListHorizontal extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0, left: 8.0, top: 10),
             child: GestureDetector(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(movies[index].title.toString()),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>  MovieDetailScreen(movieId: movies[index].id,),
+                    ));
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text(movies[index].title.toString()),
+                //     duration: const Duration(seconds: 1),
+                //   ),
+                // );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

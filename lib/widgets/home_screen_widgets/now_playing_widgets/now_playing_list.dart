@@ -20,14 +20,14 @@ class _NowPlayingListState extends State<NowPlayingList> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<NowPlayingProvider>();
+    // final state = context.watch<NowPlayingProvider>();
     return Consumer<NowPlayingProvider>(
       builder: (context, value, child) {
-        switch (state.state) {
+        switch (value.state) {
           case MovieViewState.error:
             return const Center(child: Text('Oops something went wrong!'));
           case MovieViewState.none:
-            if (state.movie.isEmpty) {
+            if (value.movie.isEmpty) {
               return SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
