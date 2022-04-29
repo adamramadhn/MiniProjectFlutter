@@ -11,7 +11,7 @@ class DetailMoviewProvider with ChangeNotifier {
 
   MovieDetail get movie => _movie;
   MovieDetail _movie =
-       MovieDetail(0, 0, '', '', '', '', 0, '', [], [], 0, 0, '', 0);
+      const MovieDetail(0, 0, '', '', '', '', 0, '', [], [], 0, 0, '', 0);
 
   changeStatus(DetailStatus s) {
     _status = s;

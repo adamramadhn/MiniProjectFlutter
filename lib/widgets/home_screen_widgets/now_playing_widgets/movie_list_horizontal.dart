@@ -26,12 +26,6 @@ class MovieListHorizontal extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) =>  MovieDetailScreen(movieId: movies[index].id,),
                     ));
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   SnackBar(
-                //     content: Text(movies[index].title.toString()),
-                //     duration: const Duration(seconds: 1),
-                //   ),
-                // );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import '../../../screen/movie_detail_screen/movie_detail_screen.dart';
+
 class PopMovieListHorizontal extends StatelessWidget {
   const PopMovieListHorizontal({Key? key}) : super(key: key);
   @override
@@ -20,12 +22,11 @@ class PopMovieListHorizontal extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0, left: 8.0, top: 10),
             child: GestureDetector(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(movies[index].title.toString()),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
+                 Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>  MovieDetailScreen(movieId: movies[index].id,),
+                    ));
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
