@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/auth/login.dart';
 import 'package:movie/provider/profile_provider.dart';
@@ -77,8 +78,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               formLogin.currentState!.validate();
                           if (isValidForm) {
                             authLogin(txtEditEmail.text, txtEditPass.text);
-                            txtEditEmail.clear();
-                            txtEditPass.clear();
                           }
                         },
                         child: const Text(
@@ -98,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 (states) => Colors.white)),
                         onPressed: () => Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
                               builder: (context) => const RegistrationScreen(),
                             )),
                         child: const Text(
@@ -119,15 +118,31 @@ class _LoginScreenState extends State<LoginScreen> {
     logindata = await SharedPreferences.getInstance();
     newUser = logindata.getBool('newUser') ?? true;
     final id = logindata.getString('idProfile');
-    if (id != null) {
+    if (id != null && !newUser) {
       context.read<ProfileProvider>().getProfileData(id);
-    }
-
-    if (newUser == false) {
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: ((context) => const HomeScreen())),
+          CupertinoPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
           (route) => false);
+      // Navigator.pushAndRemoveUntil(
+      //     context,
+      //     PageRouteBuilder(
+      //       pageBuilder: (context, animation, secondaryAnimation) {
+      //         return const HomeScreen();
+      //       },
+      //       transitionDuration: const Duration(seconds: 2),
+      //       transitionsBuilder:
+      //           (context, animation, secondaryAnimation, child) {
+      //         final tween = Tween(begin: 0.0, end: 1.0);
+      //         return FadeTransition(
+      //           opacity: animation.drive(tween),
+      //           child: child,
+      //         );
+      //       },
+      //     ),
+      //     (route) => false);
     }
   }
 
@@ -140,10 +155,12 @@ class _LoginScreenState extends State<LoginScreen> {
       context.read<ProfileProvider>().getProfileData(data.id!);
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: (context) => const HomeScreen(),
           ),
           (route) => false);
+      txtEditEmail.clear();
+      txtEditPass.clear();
     } else {
       logindata.setBool('newUser', true);
       logindata.remove('idProfile');

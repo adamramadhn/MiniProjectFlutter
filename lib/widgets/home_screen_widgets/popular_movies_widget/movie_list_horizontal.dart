@@ -22,11 +22,25 @@ class PopMovieListHorizontal extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0, left: 8.0, top: 10),
             child: GestureDetector(
               onTap: () {
-                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  MovieDetailScreen(movieId: movies[index].id,),
-                    ));
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return MovieDetailScreen(
+                        movieId: movies[index].id,
+                      );
+                    },
+                    transitionDuration: const Duration(seconds: 2),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      final tween = Tween(begin: 0.0, end: 1.0);
+                      return FadeTransition(
+                        opacity: animation.drive(tween),
+                        child: child,
+                      );
+                    },
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

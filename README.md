@@ -1,16 +1,21 @@
-# movie
+# Nobarin
 
-A new Flutter project.
+Aplikasi Katalog Film (Nobarin)
 
-## Getting Started
+## About this App
+PowerPoint:
 
-This project is a starting point for a Flutter application.
+![link](https://docs.google.com/presentation/d/1wziqN0fjYINrxQDxrYzG4pZr8RaBonNa/edit?usp=sharing&ouid=108866292431687366858&rtpof=true&sd=true)
 
-A few resources to get you started if this is your first Flutter project:
+## Guide
+- Login Screen
+- Register Screen
+- Home Screen
+ - ListView Movie On Playing
+ - ListView Movie Popular
+- Profile Screen
+ - Custom Profile User Data
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ ## APIs
+- Auth User: MockAPI => ![link](https://mockapi.io/)
+- Movie: TMDB => ![link]("https://developers.themoviedb.org/3/getting-started/introduction")

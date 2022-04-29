@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:movie/provider/movie_detail_provider.dart';
 import 'package:movie/widgets/movie_detail_widgets/movie_cast_view.dart';
@@ -146,6 +147,9 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -155,7 +159,30 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                                                 value.movie.releaseDate,
                                             style: const TextStyle(
                                                 fontSize: 12.0,
-                                                fontWeight: FontWeight.w200,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(right: 5),
+                                            child: const Icon(
+                                              FontAwesome5.star,
+                                              color: Colors.white,
+                                              size: 12,
+                                            ),
+                                          ),
+                                          Text(
+                                            value.movie.rating.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.bold,
                                                 color: Colors.white),
                                           ),
                                         ],

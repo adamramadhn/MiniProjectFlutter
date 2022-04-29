@@ -22,10 +22,24 @@ class MovieListHorizontal extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  MovieDetailScreen(movieId: movies[index].id,),
-                    ));
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return MovieDetailScreen(
+                        movieId: movies[index].id,
+                      );
+                    },
+                    transitionDuration: const Duration(seconds: 2),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      final tween = Tween(begin: 0.0, end: 1.0);
+                      return FadeTransition(
+                        opacity: animation.drive(tween),
+                        child: child,
+                      );
+                    },
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

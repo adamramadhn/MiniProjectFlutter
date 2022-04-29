@@ -71,8 +71,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               formRegis.currentState!.validate();
                           if (isValidForm) {
                             authLogin(txtRegisEmail.text, txtRegisPass.text);
-                            txtRegisEmail.clear();
-                            txtRegisPass.clear();
                           }
                         },
                         child: const Text(
@@ -92,6 +90,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void authLogin(String email, String password) async {
     final ava = await ProfileApi().getImageRandom();
     await AuthUser().register(email, password, ava.urls!.small!);
+    txtRegisEmail.clear();
+    txtRegisPass.clear();
     Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Success!\nSilahkan Login')));

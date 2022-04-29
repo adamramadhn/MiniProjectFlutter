@@ -31,13 +31,21 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 logindata = await SharedPreferences.getInstance();
                 logindata.setBool('newUser', true);
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const LoginScreen(),
+                Navigator.of(context).pushAndRemoveUntil(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return const LoginScreen();
+                      },
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        final tween = Tween(begin: 0.0, end: 1.0);
+                        return FadeTransition(
+                          opacity: animation.drive(tween),
+                          child: child,
+                        );
+                      },
                     ),
                     (route) => false);
-                //hapus Sharedpreff
                 logindata.remove('idProfile');
               },
               icon: const Icon(FontAwesome5.sign_out_alt)),
@@ -55,10 +63,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: IconButton(
                     icon: const Icon(FontAwesome5.person_booth),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ProfileScreen(id: id)));
+                      Navigator.of(context).push(PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return ProfileScreen(id: id);
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          final tween = Tween(begin: 0.0, end: 1.0);
+                          return FadeTransition(
+                            opacity: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ));
                     }))
           ]),
       body: Container(
