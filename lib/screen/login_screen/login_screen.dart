@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/auth/login.dart';
@@ -77,7 +78,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           final isValidForm =
                               formLogin.currentState!.validate();
                           if (isValidForm) {
-                            authLogin(txtEditEmail.text, txtEditPass.text);
+                            final bool isValid =
+                                EmailValidator.validate(txtEditEmail.text);
+                            if (isValid) {
+                              authLogin(txtEditEmail.text, txtEditPass.text);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Email is not valid!')));
+                              txtEditPass.clear();
+                            }
                           }
                         },
                         child: const Text(

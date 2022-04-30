@@ -23,23 +23,10 @@ class MovieDetailView extends StatefulWidget {
 class _MovieDetailViewState extends State<MovieDetailView> {
   @override
   void initState() {
-    // dataId.getInt('detailId');
 
     context.read<DetailMoviewProvider>().getDetailMovie(widget.movieId);
     super.initState();
   }
-
-  // loadId() async {
-  //   dataId = await SharedPreferences.getInstance();
-
-  //   final d = dataId.getInt('dataId');
-  //   if (d != null) {
-  //     await context.read<DetailMoviewProvider>().getDetailMovie(d);
-  //   } else {
-  //     final i = dataId.getInt('detailId');
-  //     await context.read<DetailMoviewProvider>().getDetailMovie(i!);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

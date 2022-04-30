@@ -30,7 +30,6 @@ class PopMovieListHorizontal extends StatelessWidget {
                         movieId: movies[index].id,
                       );
                     },
-                    transitionDuration: const Duration(seconds: 2),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       final tween = Tween(begin: 0.0, end: 1.0);

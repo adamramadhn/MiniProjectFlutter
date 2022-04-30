@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/auth/login.dart';
 import 'package:movie/repository/profile.dart';
@@ -70,7 +71,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           final isValidForm =
                               formRegis.currentState!.validate();
                           if (isValidForm) {
-                            authLogin(txtRegisEmail.text, txtRegisPass.text);
+                            final bool isValid =
+                                EmailValidator.validate(txtRegisEmail.text);
+                            if (isValid) {
+                              authLogin(txtRegisEmail.text, txtRegisPass.text);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Email is not valid!')));
+                              txtRegisPass.clear();
+                            }
                           }
                         },
                         child: const Text(
