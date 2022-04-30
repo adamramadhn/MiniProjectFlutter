@@ -12,6 +12,7 @@ class MovieRepository{
   var getNowPlayingMoviesApi = '$mainUrl/movie/now_playing';
   var getPopularMoviesApi = '$mainUrl/movie/popular';
   var movieUrl = "$mainUrl/movie";
+  var getTopRatedMoviesApi = '$mainUrl/movie/top_rated';
 
    Future<MovieResponse> getNowPlaying(int page) async {
     var params = {"api_key": apiKey, "language": "en-US", "page": page};
@@ -63,6 +64,17 @@ class MovieRepository{
     try {
       Response response = await _dio.get(movieUrl + "/$id" + "/similar",
           queryParameters: params);
+      return MovieResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return MovieResponse.withError("Error: $error, StackTrace: $stacktrace");
+    }
+  }
+
+  Future<MovieResponse> getTopRatedMovies() async {
+    var params = {"api_key": apiKey, "language": "en-US", "page": 1};
+    try {
+      Response response =
+          await _dio.get(getTopRatedMoviesApi, queryParameters: params);
       return MovieResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return MovieResponse.withError("Error: $error, StackTrace: $stacktrace");

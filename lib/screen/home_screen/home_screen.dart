@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:movie/screen/login_screen/login_screen.dart';
 import 'package:movie/screen/profile_screen/profile_screen.dart';
-import 'package:movie/widgets/home_screen_widgets/now_playing_widgets/now_playing_list.dart';
-import 'package:movie/widgets/home_screen_widgets/popular_movies_widget/popular_movie_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../widgets/home_screen_widgets/now_playing_widgets/now_playing_list.dart';
+import '../../widgets/home_screen_widgets/popular_movies_widget/popular_movie_list.dart';
+import '../../widgets/top_rated_movie_widgets/top_rated_movies_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,10 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color warna = Colors.black;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: warna,
+          // backgroundColor: warna,
           leading: IconButton(
               onPressed: () async {
                 logindata = await SharedPreferences.getInstance();
@@ -49,13 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 logindata.remove('idProfile');
               },
               icon: const Icon(FontAwesome5.sign_out_alt)),
-          title: const Text(
-            'Nobarin',
-            style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold,
-                fontSize: 28),
-          ),
+          title: Text('Nobarin', style: Theme.of(context).textTheme.bodyText1
+              // TextStyle(
+              //     fontFamily: 'OpenSans',
+              //     fontWeight: FontWeight.bold,
+              //     fontSize: 28),
+              ),
           centerTitle: true,
           actions: [
             Padding(
@@ -78,16 +78,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ));
                     }))
           ]),
-      body: Container(
-        color: warna,
-        child: ListView(
-          children: [
-            title('Sedang Tayang'),
-            const NowPlayingList(),
-            title('Populer'),
-            const PopularMovieList(),
-          ],
-        ),
+      body: ListView(
+        children: <Widget>[
+          title('Sedang Tayang'),
+          const NowPlayingList(),
+          title('Populer'),
+          const PopularMovieList(),
+          title('Top Rated'),
+          const TopRatedMovieList(),
+        ],
       ),
     );
   }
@@ -95,14 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget title(String judul) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(
-        judul,
-        style: const TextStyle(
-            fontSize: 24,
-            fontFamily: 'OpenSans',
-            fontWeight: FontWeight.bold,
-            color: Colors.white),
-      ),
+      child: Text(judul, style: Theme.of(context).textTheme.bodyText2
+          ),
     );
   }
 

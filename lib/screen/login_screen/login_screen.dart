@@ -30,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
           child: Container(
         margin: const EdgeInsets.only(left: 20, right: 20),
@@ -42,13 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'Nobarin',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontFamily: 'OpenSans',
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SizedBox(
                     height: 30,
@@ -71,9 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white, // background
+                          // onPrimary: Colors.white, // foreground
+                        ),
                         onPressed: () {
                           final isValidForm =
                               formLogin.currentState!.validate();
@@ -90,9 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           }
                         },
-                        child: const Text(
+                        child: Text(
                           'Sign In',
-                          style: TextStyle(color: Colors.black),
+                          style: Theme.of(context).textTheme.button,
                         )),
                   ),
                   const SizedBox(
@@ -102,17 +98,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white, // background
+                          // onPrimary: Colors.white, // foreground
+                        ),
                         onPressed: () => Navigator.push(
                             context,
                             CupertinoPageRoute(
                               builder: (context) => const RegistrationScreen(),
                             )),
-                        child: const Text(
+                        child: Text(
                           'Sign Up',
-                          style: TextStyle(color: Colors.black),
+                          style: Theme.of(context).textTheme.button,
                         )),
                   )
                 ],

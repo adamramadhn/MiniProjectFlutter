@@ -23,7 +23,6 @@ class MovieDetailView extends StatefulWidget {
 class _MovieDetailViewState extends State<MovieDetailView> {
   @override
   void initState() {
-
     context.read<DetailMoviewProvider>().getDetailMovie(widget.movieId);
     super.initState();
   }
@@ -425,7 +424,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0, top: 10.0),
-                        child: Text("SIMILAR MOVIES dari ${widget.movieId}",
+                        child: Text("SIMILAR MOVIES",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14.0,

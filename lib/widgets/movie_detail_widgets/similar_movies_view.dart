@@ -43,13 +43,11 @@ class _SimilarMovieViewState extends State<SimilarMovieView> {
                   padding: const EdgeInsets.only(bottom: 10.0, left: 8.0),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieDetailScreen(
-                              movieId: value.similarMovie[index].id),
-                        ),
-                      );
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MovieDetailScreen(
+                                  movieId: value.similarMovie[index].id)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

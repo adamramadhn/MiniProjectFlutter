@@ -6,9 +6,7 @@ class MovieDetailScreen extends StatelessWidget {
   final int movieId;
   @override
   Widget build(BuildContext context) {
-    Color warna = Colors.black;
     return Scaffold(
-      backgroundColor: warna,
       body: MovieDetailView(
         movieId: movieId,
       ),
