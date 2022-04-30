@@ -2,7 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/auth/login.dart';
 import 'package:movie/repository/profile.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/registration_screen/registration_widget.dart';
 
@@ -14,8 +13,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  late SharedPreferences logindata;
-  late bool newUser;
   final formRegis = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
