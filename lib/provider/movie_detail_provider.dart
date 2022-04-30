@@ -13,6 +13,9 @@ class DetailMoviewProvider with ChangeNotifier {
   MovieDetail _movie =
       const MovieDetail(0, 0, '', '', '', '', 0, '', [], [], 0, 0, '', 0);
 
+  final List<int> _historyDataIdMovie = [];
+  List<int> get hisoryDataIdMovie => _historyDataIdMovie;
+
   changeStatus(DetailStatus s) {
     _status = s;
   }
@@ -20,6 +23,7 @@ class DetailMoviewProvider with ChangeNotifier {
   getDetailMovie(int id) async {
     changeStatus(DetailStatus.loading);
     try {
+      _historyDataIdMovie.add(id);
       final d = await movieAPI.getMovieDetail(id);
       _movie = d.movieDetail;
       changeStatus(DetailStatus.none);
@@ -28,5 +32,11 @@ class DetailMoviewProvider with ChangeNotifier {
       changeStatus(DetailStatus.error);
       notifyListeners();
     }
+  }
+
+  backId() {
+    _historyDataIdMovie.removeLast();
+    changeStatus(DetailStatus.none);
+    notifyListeners();
   }
 }

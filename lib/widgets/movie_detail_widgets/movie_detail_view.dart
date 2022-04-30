@@ -1,9 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:movie/provider/movie_detail_provider.dart';
+import 'package:movie/screen/home_screen/home_screen.dart';
 import 'package:movie/widgets/movie_detail_widgets/movie_cast_view.dart';
+import 'package:movie/widgets/movie_detail_widgets/similar_movies_view.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -20,12 +23,27 @@ class MovieDetailView extends StatefulWidget {
 class _MovieDetailViewState extends State<MovieDetailView> {
   @override
   void initState() {
+    // dataId.getInt('detailId');
+
     context.read<DetailMoviewProvider>().getDetailMovie(widget.movieId);
     super.initState();
   }
 
+  // loadId() async {
+  //   dataId = await SharedPreferences.getInstance();
+
+  //   final d = dataId.getInt('dataId');
+  //   if (d != null) {
+  //     await context.read<DetailMoviewProvider>().getDetailMovie(d);
+  //   } else {
+  //     final i = dataId.getInt('detailId');
+  //     await context.read<DetailMoviewProvider>().getDetailMovie(i!);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // loadId();
     final currencyFormatter = NumberFormat();
     return Consumer<DetailMoviewProvider>(builder: (context, value, child) {
       switch (value.status) {
@@ -132,6 +150,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                                 const SizedBox(
                                   width: 10.0,
                                 ),
+                                //title
                                 SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width - 140,
@@ -193,15 +212,22 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                               ],
                             ),
                           )),
+                      //back button
                       Positioned(
                         left: 5.0,
                         child: SafeArea(
                             child: IconButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const HomeScreen(),
+                                      ),
+                                      (route) => false);
                                 },
                                 icon: const Icon(
-                                  EvaIcons.arrowIosBack,
+                                  EvaIcons.home,
                                   size: 25.0,
                                   color: Colors.white,
                                 ))),
@@ -300,6 +326,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                 const SizedBox(
                   height: 10.0,
                 ),
+                //Cast
                 Container(
                   padding: const EdgeInsets.all(10.0),
                   decoration:
@@ -324,6 +351,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                 const SizedBox(
                   height: 20.0,
                 ),
+                //About Movie
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Text("ABOUT MOVIE",
@@ -335,6 +363,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                 const SizedBox(
                   height: 10.0,
                 ),
+                //Status
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Column(
@@ -397,41 +426,34 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                     ],
                   ),
                 ),
-                // const SizedBox(
-                //   height: 20.0,
-                // ),
-                // Container(
-                //   decoration:
-                //       BoxDecoration(color: Colors.white.withOpacity(0.05)),
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Padding(
-                //         padding: const EdgeInsets.only(left: 10.0, top: 10.0),
-                //         child: Text("SIMILAR MOVIES",
-                //             style: TextStyle(
-                //                 fontWeight: FontWeight.bold,
-                //                 fontSize: 14.0,
-                //                 color: Colors.white.withOpacity(0.5))),
-                //       ),
-                //       const SizedBox(
-                //         height: 10.0,
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.only(left: 2.0),
-                //         child: RepositoryProvider.value(
-                //           value: movieRepository,
-                //           child: SimilarMoviesWidget(
-                //             movieId: movieId,
-                //           ),
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 20.0,
-                // ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                //Similar Movie
+                Container(
+                  decoration:
+                      BoxDecoration(color: Colors.white.withOpacity(0.05)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+                        child: Text("SIMILAR MOVIES dari ${widget.movieId}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14.0,
+                                color: Colors.white.withOpacity(0.5))),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      SimilarMovieView(movieId: widget.movieId),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
               ],
             ),
           );

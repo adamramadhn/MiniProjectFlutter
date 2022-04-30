@@ -20,7 +20,6 @@ class _NowPlayingListState extends State<NowPlayingList> {
 
   @override
   Widget build(BuildContext context) {
-    // final state = context.watch<NowPlayingProvider>();
     return Consumer<NowPlayingProvider>(
       builder: (context, value, child) {
         switch (value.state) {

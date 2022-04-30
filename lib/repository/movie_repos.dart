@@ -57,4 +57,15 @@ class MovieRepository{
       return CastResponse.withError("Error: $error, StackTrace: $stacktrace");
     }
   }
+
+  Future<MovieResponse> getSimilarMovies(int id) async {
+    var params = {"api_key": apiKey, "language": "en-US"};
+    try {
+      Response response = await _dio.get(movieUrl + "/$id" + "/similar",
+          queryParameters: params);
+      return MovieResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return MovieResponse.withError("Error: $error, StackTrace: $stacktrace");
+    }
+  }
 }

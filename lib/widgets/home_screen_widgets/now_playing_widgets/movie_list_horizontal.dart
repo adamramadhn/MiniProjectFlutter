@@ -3,6 +3,7 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:movie/provider/now_playing_provider.dart';
 import 'package:movie/screen/movie_detail_screen/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -10,6 +11,8 @@ class MovieListHorizontal extends StatelessWidget {
   const MovieListHorizontal({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    late SharedPreferences dataId;
+
     final movies = Provider.of<NowPlayingProvider>(context).movie;
     return SizedBox(
       height: 180.0,
@@ -20,7 +23,10 @@ class MovieListHorizontal extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10.0, left: 8.0, top: 10),
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
+                dataId = await SharedPreferences.getInstance();
+                // dataId.setInt('detailId', movies[index].id);
+                dataId.clear();
                 Navigator.push(
                   context,
                   PageRouteBuilder(
@@ -29,7 +35,7 @@ class MovieListHorizontal extends StatelessWidget {
                         movieId: movies[index].id,
                       );
                     },
-                    transitionDuration: const Duration(seconds: 2),
+                    transitionDuration: const Duration(seconds: 1),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       final tween = Tween(begin: 0.0, end: 1.0);
