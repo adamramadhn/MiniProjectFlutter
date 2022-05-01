@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.17.0
   shared_preferences: ^2.0.13
   email_validator: ^2.0.1
+  connectivity_plus: ^2.3.0
   
 
 dev_dependencies:

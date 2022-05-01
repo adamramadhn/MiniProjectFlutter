@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie/provider/connectivity/connection_provider.dart';
 import 'package:movie/provider/movie_cast_provider.dart';
 import 'package:movie/provider/movie_detail_provider.dart';
 import 'package:movie/provider/now_playing_provider.dart';
@@ -19,6 +20,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => ProfileProvider()),
       ChangeNotifierProvider(create: (_) => SimilarMovieProvider()),
       ChangeNotifierProvider(create: (_) => TopRatedMovieProvider()),
+      ChangeNotifierProvider(create: (_) => CheckConnectivityProvider()),
     ],
     child: const MyApp(),
   ));
