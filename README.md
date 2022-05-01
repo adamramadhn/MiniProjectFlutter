@@ -12,6 +12,7 @@ PowerPoint:
 - Home Screen
   - ListView Movie On Playing
   - ListView Movie Popular
+- Detail Screen
 - Profile Screen
   - Custom Profile User Data
 
@@ -21,3 +22,8 @@ PowerPoint:
 
 ## State Management
 Provider => [Provider](https://pub.dev/packages/provider)
+
+## Hasil
+Dapat dilihat pada Video Presentasi berikut => [Nobarin.mkv](https://drive.google.com/file/d/1nI5DVxupwb5u9uAYGFA0aKMY3jsoWYDl/view?usp=sharing)
+
+Nb: Suara agak kecil
