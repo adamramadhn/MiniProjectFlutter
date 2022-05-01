@@ -2,6 +2,11 @@
 
 Aplikasi Katalog Film (Nobarin)
 
+## Download Apk
+
+Nobarin App: 
+[NobarinApp.apk](https://drive.google.com/file/d/14zRhR3sHkqv2byX9x8Fmf55zp7hubLIA/view?usp=sharing)
+
 ## About this App
 PowerPoint:
 [Nobarin](https://docs.google.com/presentation/d/1wziqN0fjYINrxQDxrYzG4pZr8RaBonNa/edit?usp=sharing&ouid=108866292431687366858&rtpof=true&sd=true)
