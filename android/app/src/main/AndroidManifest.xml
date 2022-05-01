@@ -2,7 +2,7 @@
     package="com.example.movie">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="nobarin"
+        android:label="Nobarin"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
