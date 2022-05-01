@@ -12,7 +12,10 @@ PowerPoint:
 - Home Screen
   - ListView Movie On Playing
   - ListView Movie Popular
+  - ListView Movie Top Rated
 - Detail Screen
+  - Detail Movie
+  - ListView Similar Movie
 - Profile Screen
   - Custom Profile User Data
 
