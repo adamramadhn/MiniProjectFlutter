@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class TopRatedSliverGrid extends StatelessWidget {
-  const TopRatedSliverGrid({Key? key}) : super(key: key);
+class TopRatedListWidget extends StatelessWidget {
+  const TopRatedListWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final movies = Provider.of<TopRatedMovieProvider>(context).movie;

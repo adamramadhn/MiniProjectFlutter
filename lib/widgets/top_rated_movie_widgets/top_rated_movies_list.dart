@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie/provider/now_playing_provider.dart';
 import 'package:movie/provider/top_rated_movie_provider.dart';
-import 'package:movie/repository/movie_repos.dart';
-import 'package:movie/widgets/home_screen_widgets/now_playing_widgets/movie_list_horizontal.dart';
 import 'package:movie/widgets/home_screen_widgets/movie_widget_loader.dart';
-import 'package:movie/widgets/top_rated_movie_widgets/top_rated_slivergrid.dart';
+import 'package:movie/widgets/top_rated_movie_widgets/top_rated_list.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedMovieList extends StatefulWidget {
@@ -48,7 +45,7 @@ class _TopRatedMovieListState extends State<TopRatedMovieList> {
                 ),
               );
             } else {
-              return const TopRatedSliverGrid();
+              return const TopRatedListWidget();
             }
           default:
             return buildMovielistLoaderWidget(context);
