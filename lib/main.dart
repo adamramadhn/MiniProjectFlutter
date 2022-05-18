@@ -7,6 +7,7 @@ import 'package:movie/provider/popular_movie_provider.dart';
 import 'package:movie/provider/profile_provider.dart';
 import 'package:movie/provider/similar_movie_provider.dart';
 import 'package:movie/provider/top_rated_movie_provider.dart';
+import 'package:movie/provider/video_provider.dart';
 import 'package:movie/screen/login_screen/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => SimilarMovieProvider()),
       ChangeNotifierProvider(create: (_) => TopRatedMovieProvider()),
       ChangeNotifierProvider(create: (_) => CheckConnectivityProvider()),
+      ChangeNotifierProvider(create: (_) => VideoProvider()),
     ],
     child: const MyApp(),
   ));

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:movie/provider/movie_detail_provider.dart';
+import 'package:movie/provider/video_provider.dart';
 import 'package:movie/screen/home_screen/home_screen.dart';
 import 'package:movie/widgets/movie_detail_widgets/movie_cast_view.dart';
 import 'package:movie/widgets/movie_detail_widgets/similar_movies_view.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'cast_widget_loader.dart';
 
 class MovieDetailView extends StatefulWidget {
@@ -24,12 +26,24 @@ class _MovieDetailViewState extends State<MovieDetailView> {
   @override
   void initState() {
     context.read<DetailMoviewProvider>().getDetailMovie(widget.movieId);
+    context.read<VideoProvider>().getVideoTrailer(widget.movieId);
     super.initState();
+  }
+  @override
+  void didChangeDependencies() {
+    context.read<VideoProvider>().getVideoTrailer(widget.movieId);
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    // loadId();
+    final YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: context.watch<VideoProvider>().videoTrailer,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+      ),
+    );
     final currencyFormatter = NumberFormat();
     return Consumer<DetailMoviewProvider>(builder: (context, value, child) {
       switch (value.status) {
@@ -308,6 +322,13 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                           )),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                YoutubePlayer(
+                  controller: _controller,
+                  liveUIColor: Colors.amber,
                 ),
                 const SizedBox(
                   height: 10.0,
