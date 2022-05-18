@@ -5,10 +5,11 @@ import 'package:movie/auth/login.dart';
 import 'package:movie/repository/profile.dart';
 import 'package:movie/widgets/container_opacity_widget/container_opacity_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../../provider/connectivity/connection_provider.dart';
 import '../../widgets/error_handling_widget/error_handle_widget.dart';
 import '../../widgets/registration_screen/registration_widget.dart';
+import 'package:fzregex/fzregex.dart';
+import 'package:fzregex/utils/pattern.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -95,9 +96,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         const SizedBox(
                           height: 10,
                         ),
+                        Center(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: regisInputPassword()),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
-                            child: regisInputPassword()),
+                            child: regisInputNama()),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: regisInputNoHp()),
                         const SizedBox(
                           height: 10,
                         ),
@@ -111,18 +126,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               onPressed: () {
                                 final isValidForm =
                                     formRegis.currentState!.validate();
+
                                 if (isValidForm) {
                                   final bool isValid = EmailValidator.validate(
                                       txtRegisEmail.text);
-                                  if (isValid) {
+                                  if (isValid &&
+                                      Fzregex.hasMatch(txtRegisPass.text,
+                                          FzPattern.passwordNormal1)) {
                                     authLogin(
-                                        txtRegisEmail.text, txtRegisPass.text);
-                                  } else {
+                                        txtRegisEmail.text,
+                                        txtRegisPass.text,
+                                        txtRegisNama.text,
+                                        txtRegisNohp.text);
+                                  } else if (isValid == false) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                             content:
                                                 Text('Email is not valid!')));
                                     txtRegisPass.clear();
+                                  } else if (Fzregex.hasMatch(txtRegisPass.text,
+                                          FzPattern.passwordNormal1) ==
+                                      false) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Password must contains at least 8 character, 1 letter and 1 Number')));
+                                    // txtRegisPass.clear();
                                   }
                                 }
                               },
@@ -142,11 +171,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void authLogin(String email, String password) async {
+  void authLogin(
+      String email, String password, String nama, String nohp) async {
     final ava = await ProfileApi().getImageRandom();
-    await AuthUser().register(email, password, ava.urls!.small!);
+    await AuthUser().register(email, password, ava.urls!.small!, nama, nohp);
     txtRegisEmail.clear();
     txtRegisPass.clear();
+    txtRegisNama.clear();
+    txtRegisNohp.clear();
     Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Success!\nSilahkan Login')));

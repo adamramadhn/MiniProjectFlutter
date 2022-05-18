@@ -16,8 +16,8 @@ class AuthUser {
     }
   }
 
-  Future<ProfileData> register(String email, String password,String ava) async {
-    var d = {"email": email, "password": password,"avatar":ava,"nama":"Update Your Name..","nohp":"Update your phone number.."};
+  Future<ProfileData> register(String email, String password,String ava,String nama, String nohp) async {
+    var d = {"email": email, "password": password,"avatar":ava,"nama":nama,"nohp":nohp};
     try {
       Response response = await _dio.post(mainUrl, data: d);
       return ProfileData.fromJson(response.data);

@@ -45,6 +45,7 @@ dependencies:
   email_validator: ^2.0.1
   connectivity_plus: ^2.3.0
   youtube_player_flutter: ^8.0.0
+  fzregex: ^2.0.0
   
 
 dev_dependencies:
