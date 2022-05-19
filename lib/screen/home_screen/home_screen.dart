@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:movie/provider/profile_provider.dart';
+import 'package:movie/screen/favorite_screen/favorite_screen.dart';
 import 'package:movie/screen/login_screen/login_screen.dart';
 import 'package:movie/screen/profile_screen/profile_screen.dart';
 import 'package:movie/widgets/container_opacity_widget/container_opacity_widget.dart';
@@ -93,6 +95,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ));
                       }
+                    })),
+            Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: IconButton(
+                    icon: const Icon(FontAwesome5.bookmark),
+                    onPressed: () {
+                      if (!notConnected) {
+                        Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return  FavoriteScreen(profileId:id);
+                          },
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(begin: 0.0, end: 1.0);
+                            return FadeTransition(
+                              opacity: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        ));
+                      }
                     }))
           ]),
       body: ListView(
@@ -101,7 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Stack(
               children: [
                 const ErrorHandleWidget(),
-                containerOpacityWidget(context,Colors.black, Colors.black, 0.8, 0.4),
+                containerOpacityWidget(
+                    context, Colors.black, Colors.black, 0.8, 0.4),
                 SizedBox(
                   height: MediaQuery.of(context).size.height -
                       AppBar().preferredSize.height,
@@ -113,11 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           if (!notConnected) title('Sedang Tayang'),
-          if (!notConnected) const NowPlayingList(),
+          if (!notConnected)  NowPlayingList(profileId: id,),
           if (!notConnected) title('Populer'),
-          const PopularMovieList(),
+           PopularMovieList(profileId: id,),
           if (!notConnected) title('Top Rated'),
-          if (!notConnected) const TopRatedMovieList(),
+          if (!notConnected)  TopRatedMovieList(profileId: id,),
         ],
       ),
     );
@@ -134,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
     logindata = await SharedPreferences.getInstance();
     setState(() {
       id = logindata.getString('idProfile') ?? 'null';
+      Provider.of<ProfileProvider>(context,listen: false).getProfileData(id);
     });
   }
 

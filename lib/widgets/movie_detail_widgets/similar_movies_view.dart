@@ -9,8 +9,9 @@ import '../../screen/movie_detail_screen/movie_detail_screen.dart';
 import '../home_screen_widgets/movie_widget_loader.dart';
 
 class SimilarMovieView extends StatefulWidget {
-  const SimilarMovieView({Key? key, required this.movieId}) : super(key: key);
+  const SimilarMovieView({Key? key, required this.movieId,required this.profileId}) : super(key: key);
   final int movieId;
+  final String profileId;
   @override
   State<SimilarMovieView> createState() => _SimilarMovieViewState();
 }
@@ -47,7 +48,7 @@ class _SimilarMovieViewState extends State<SimilarMovieView> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MovieDetailScreen(
-                                  movieId: value.similarMovie[index].id)));
+                                  movieId: value.similarMovie[index].id,profileId: widget.profileId,)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

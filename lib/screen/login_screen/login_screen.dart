@@ -56,13 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
           },
         ),
         if (notConnected)
-          containerOpacityWidget(context,Colors.black, Colors.black, 0.8, 0.4),
+          containerOpacityWidget(context, Colors.black, Colors.black, 0.8, 0.4),
         if (notConnected)
           const Center(
             child: Text('Please Check Your Connectivity..'),
           ),
         if (!notConnected)
-          containerOpacityWidget(context,Colors.black, Colors.black, 0.1, 0.1),
+          containerOpacityWidget(context, Colors.black, Colors.black, 0.1, 0.1),
         if (!notConnected)
           Container(
             margin: const EdgeInsets.only(left: 20, right: 20),
@@ -189,6 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void authLogin(String email, String password) async {
     logindata = await SharedPreferences.getInstance();
     final data = await AuthUser().login(email, password);
+    print('$email==${data.email} dan $password==${data.password}');
     if (email == data.email && password == data.password) {
       logindata.setBool('newUser', false);
       logindata.setString('idProfile', data.id!);

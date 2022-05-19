@@ -5,9 +5,19 @@ class ProfileData {
   String? email;
   String? password;
   String? id;
+  List? favorite;
+  List? favId;
 
-  ProfileData(
-      {this.avatar, this.nama, this.nohp, this.email, this.password, this.id});
+  ProfileData({
+    this.avatar,
+    this.nama,
+    this.nohp,
+    this.email,
+    this.password,
+    this.id,
+    this.favorite,
+    this.favId,
+  });
 
   ProfileData.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];
@@ -15,6 +25,18 @@ class ProfileData {
     nohp = json['nohp'];
     email = json['email'];
     password = json['password'];
+    if (json['favorite'] != null) {
+      favorite = [];
+      json['favorite'].forEach((v) {
+        favorite!.add(v);
+      });
+    }
+    if (json['favId'] != null) {
+      favId = [];
+      json['favId'].forEach((v) {
+        favId!.add(v);
+      });
+    }
     id = json['id'];
   }
 
@@ -26,6 +48,12 @@ class ProfileData {
     data['email'] = email;
     data['password'] = password;
     data['id'] = id;
+    if (favorite != null) {
+      data['favorite'] = favorite!.map((v) => v.toJson()).toList();
+    }
+    if (favId != null) {
+      data['favId'] = favId!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

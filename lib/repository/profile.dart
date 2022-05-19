@@ -27,6 +27,15 @@ class ProfileApi {
     }
   }
 
+  addFavorite(String id, List favTitle, List favId) async {
+    var params = {"favorite": favTitle,"favId":favId};
+    try {
+      await _dio.put(mainUrl + '/$id', data: params);
+    } catch (e) {
+      return ProfileData.fromJson({});
+    }
+  }
+
   Future<RandomImageApi> getImageRandom() async {
     try {
       Response response = await _dio.get(

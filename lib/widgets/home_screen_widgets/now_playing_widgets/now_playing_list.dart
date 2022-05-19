@@ -5,7 +5,8 @@ import 'package:movie/widgets/home_screen_widgets/movie_widget_loader.dart';
 import 'package:provider/provider.dart';
 
 class NowPlayingList extends StatefulWidget {
-  const NowPlayingList({Key? key}) : super(key: key);
+  const NowPlayingList({Key? key, required this.profileId}) : super(key: key);
+  final String profileId;
 
   @override
   State<NowPlayingList> createState() => _NowPlayingListState();
@@ -45,7 +46,9 @@ class _NowPlayingListState extends State<NowPlayingList> {
                 ),
               );
             } else {
-              return const MovieListHorizontal();
+              return MovieListHorizontal(
+                profileId: widget.profileId,
+              );
             }
           default:
             return buildMovielistLoaderWidget(context);

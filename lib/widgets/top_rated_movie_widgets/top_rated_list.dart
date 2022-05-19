@@ -7,7 +7,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class TopRatedListWidget extends StatelessWidget {
-  const TopRatedListWidget({Key? key}) : super(key: key);
+  const TopRatedListWidget({Key? key,required this.profileId}) : super(key: key);
+  final String profileId;
   @override
   Widget build(BuildContext context) {
     final movies = Provider.of<TopRatedMovieProvider>(context).movie;
@@ -27,6 +28,7 @@ class TopRatedListWidget extends StatelessWidget {
                     pageBuilder: (context, animation, secondaryAnimation) {
                       return MovieDetailScreen(
                         movieId: movies[index].id,
+                        profileId: profileId,
                       );
                     },
                     transitionsBuilder:

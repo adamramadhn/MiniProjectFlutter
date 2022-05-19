@@ -7,7 +7,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MovieListHorizontal extends StatelessWidget {
-  const MovieListHorizontal({Key? key}) : super(key: key);
+  const MovieListHorizontal({Key? key, required this.profileId})
+      : super(key: key);
+  final String profileId;
   @override
   Widget build(BuildContext context) {
     final movies = Provider.of<NowPlayingProvider>(context).movie;
@@ -27,6 +29,7 @@ class MovieListHorizontal extends StatelessWidget {
                     pageBuilder: (context, animation, secondaryAnimation) {
                       return MovieDetailScreen(
                         movieId: movies[index].id,
+                        profileId: profileId,
                       );
                     },
                     transitionsBuilder:

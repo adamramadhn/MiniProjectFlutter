@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import '../movie_widget_loader.dart';
 
 class PopularMovieList extends StatefulWidget {
-  const PopularMovieList({Key? key}) : super(key: key);
+  const PopularMovieList({Key? key,required this.profileId}) : super(key: key);
+  final String profileId;
 
   @override
   State<PopularMovieList> createState() => _PopularMovieListState();
@@ -46,7 +47,7 @@ class _PopularMovieListState extends State<PopularMovieList> {
                 ),
               );
             } else {
-              return const PopMovieListHorizontal();
+              return  PopMovieListHorizontal(profileId: widget.profileId,);
             }
           default:
             return buildMovielistLoaderWidget(context);

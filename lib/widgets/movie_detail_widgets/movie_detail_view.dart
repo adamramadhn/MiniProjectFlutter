@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:movie/provider/favorite_provider.dart';
 import 'package:movie/provider/movie_detail_provider.dart';
 import 'package:movie/provider/video_provider.dart';
 import 'package:movie/screen/home_screen/home_screen.dart';
@@ -15,30 +16,53 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'cast_widget_loader.dart';
 
 class MovieDetailView extends StatefulWidget {
-  const MovieDetailView({Key? key, required this.movieId}) : super(key: key);
+  const MovieDetailView(
+      {Key? key, required this.movieId, required this.profileId})
+      : super(key: key);
   final int movieId;
-
+  final String profileId;
   @override
   State<MovieDetailView> createState() => _MovieDetailViewState();
 }
 
 class _MovieDetailViewState extends State<MovieDetailView> {
+  Color favColor = Colors.white;
+  String trailer = '';
   @override
   void initState() {
-    context.read<DetailMoviewProvider>().getDetailMovie(widget.movieId);
-    context.read<VideoProvider>().getVideoTrailer(widget.movieId);
+    Provider.of<DetailMoviewProvider>(context, listen: false)
+        .getDetailMovie(widget.movieId);
+    Provider.of<VideoProvider>(context, listen: false)
+        .getVideoTrailer(widget.movieId);
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
-    context.read<VideoProvider>().getVideoTrailer(widget.movieId);
+    // context.read<VideoProvider>().getVideoTrailer(widget.movieId);
+    Provider.of<VideoProvider>(context,listen: false).getVideoTrailer(widget.movieId);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
+    final vidId = Provider.of<VideoProvider>(context).videoTrailer;
+    final fav =
+        Provider.of<FavoriteProvider>(context, listen: false).getFavMovie;
+    final mov =
+        Provider.of<DetailMoviewProvider>(context, listen: false).movie.title;
+    if (fav.contains(mov)) {
+      setState(() {
+        favColor = Colors.red;
+      });
+    } else {
+      setState(() {
+        favColor = Colors.white;
+      });
+    }
+    //context.watch<VideoProvider>().videoTrailer
     final YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: context.watch<VideoProvider>().videoTrailer,
+      initialVideoId: vidId,
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
@@ -333,6 +357,52 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                 const SizedBox(
                   height: 10.0,
                 ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        var a = Provider.of<FavoriteProvider>(context,
+                                listen: false)
+                            .getFavMovie;
+                        try {
+                          if (a.contains(value.movie.title)) {
+                            Provider.of<FavoriteProvider>(context,
+                                    listen: false)
+                                .removeFavorite(widget.profileId,
+                                    value.movie.title, widget.movieId);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Dihapus dari favorit!'),
+                              duration: Duration(seconds: 1),
+                            ));
+                          } else {
+                            Provider.of<FavoriteProvider>(context,
+                                    listen: false)
+                                .addFavorite(widget.profileId,
+                                    value.movie.title, widget.movieId);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Ditambahkan ke favorit!'),
+                              duration: Duration(seconds: 1),
+                            ));
+                          }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'Something wrong please try again later..'),
+                                  duration: Duration(seconds: 1)));
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      Icons.favorite,
+                      color: favColor,
+                    ),
+                    label: const Text('Add to Favorite')),
+
+                const SizedBox(
+                  height: 10.0,
+                ),
                 //Cast
                 Container(
                   padding: const EdgeInsets.all(10.0),
@@ -454,7 +524,8 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      SimilarMovieView(movieId: widget.movieId),
+                      SimilarMovieView(
+                          movieId: widget.movieId, profileId: widget.profileId),
                     ],
                   ),
                 ),

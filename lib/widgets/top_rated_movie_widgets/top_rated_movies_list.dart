@@ -5,8 +5,8 @@ import 'package:movie/widgets/top_rated_movie_widgets/top_rated_list.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedMovieList extends StatefulWidget {
-  const TopRatedMovieList({Key? key}) : super(key: key);
-
+  const TopRatedMovieList({Key? key,required this.profileId}) : super(key: key);
+  final String profileId;
   @override
   State<TopRatedMovieList> createState() => _TopRatedMovieListState();
 }
@@ -45,7 +45,7 @@ class _TopRatedMovieListState extends State<TopRatedMovieList> {
                 ),
               );
             } else {
-              return const TopRatedListWidget();
+              return TopRatedListWidget(profileId: widget.profileId,);
             }
           default:
             return buildMovielistLoaderWidget(context);

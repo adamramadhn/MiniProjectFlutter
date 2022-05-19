@@ -8,7 +8,9 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../../screen/movie_detail_screen/movie_detail_screen.dart';
 
 class PopMovieListHorizontal extends StatelessWidget {
-  const PopMovieListHorizontal({Key? key}) : super(key: key);
+  const PopMovieListHorizontal({Key? key, required this.profileId})
+      : super(key: key);
+  final String profileId;
   @override
   Widget build(BuildContext context) {
     final movies = Provider.of<PopularMovieProvider>(context).popMovie;
@@ -28,6 +30,7 @@ class PopMovieListHorizontal extends StatelessWidget {
                     pageBuilder: (context, animation, secondaryAnimation) {
                       return MovieDetailScreen(
                         movieId: movies[index].id,
+                        profileId: profileId,
                       );
                     },
                     transitionsBuilder:

@@ -18,8 +18,8 @@ class MovieRepository {
   Future<Video> getVideo(int movieId) async {
     var params = {"api_key": apiKey};
     try {
-      Response response =
-          await _dio.get('$mainUrl/movie/$movieId/videos', queryParameters: params);
+      Response response = await _dio.get('$mainUrl/movie/$movieId/videos',
+          queryParameters: params);
       return Video.fromJson(response.data);
     } catch (e) {
       return Video();
