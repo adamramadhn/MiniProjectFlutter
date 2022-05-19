@@ -28,6 +28,8 @@ Nb: Suara agak kecil
   - ListView Similar Movie
 - Profile Screen
   - Custom Profile User Data
+- Favorite Screen (Need to Add Favorite Movie in Detail Screen)
+  - List Movie Favorite
 
  ## APIs
 - Auth User: MockAPI => [mockapi](https://mockapi.io/)
@@ -50,6 +52,8 @@ All from [Pub.dev](https://pub.dev/)
 - shared_preferences
 - email_validator
 - connectivity_plus
+- youtube_player_flutter
+- fzregex
 
 ## Font
 Open Sans => [GoogleFonts](https://fonts.google.com/specimen/Open+Sans?query=open+sans)
