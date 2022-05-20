@@ -94,7 +94,7 @@ Widget regisInputNama() {
   return TextFormField(
       cursorColor: Colors.white,
       keyboardType: TextInputType.text,
-      obscureText: true,
+      obscureText: false,
       autofocus: false,
       controller: txtRegisNama,
       onSaved: (String? val) {
@@ -137,7 +137,7 @@ Widget regisInputNoHp() {
   return TextFormField(
       cursorColor: Colors.white,
       keyboardType: TextInputType.phone,
-      obscureText: true,
+      obscureText: false,
       autofocus: false,
       controller: txtRegisNohp,
       onSaved: (String? val) {
